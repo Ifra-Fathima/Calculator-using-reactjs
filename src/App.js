@@ -17,8 +17,43 @@ function App() {
     updateinput(del);
   }
 
-  const result=()=>{
-    updateinput(eval(prev).toString());
+  function calculate(prev){
+    try{
+      const match = prev.match(/(\d+)([+\-*/])(\d+)/);
+
+      if (!match){
+        return "error";
+      }
+      const num1=parseFloat(match[1]);
+      const operator=match[2];
+      const num2=parseFloat(match[3]);
+
+      let finresult;
+      switch(operator){
+        case '+':
+          finresult=num1+num2;
+          break;
+        case '-':
+          finresult=num1-num2;
+          break;
+        case '*':
+          finresult=num1*num2;
+          break;
+        case '/':
+          finresult=num1/num2;
+          break;
+        default:
+          return "error";
+      }
+      return finresult.toString();
+    }
+    catch(error){
+      return "error";
+    }
+  }
+
+  const result=(finresult)=>{
+    updateinput(calculate(prev));
   }
     
   return (
